@@ -1,4 +1,4 @@
-const {downloadFile, uploadFile} = require('./uploadToCloudStorage');
+const {downloadFile, uploadFile} = require('./upload-to-cloud-storage');
 const pool_db = require("./pooldb.js")
 
 async function handlePictures(body) {
