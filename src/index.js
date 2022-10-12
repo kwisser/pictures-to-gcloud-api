@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const databaseService = require('./database_service.js')
+const databaseService = require('./database-service.js')
 const cors = require('cors');
 
 
