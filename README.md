@@ -1,4 +1,6 @@
-# download-picture-to-gcloud-api
+# Picture to Google Cloud Api
+
+Endpoint which receives urls of pictures and downloads them to google cloud storage
 
 ## Prepare GCP
 
