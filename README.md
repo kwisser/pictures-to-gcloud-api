@@ -12,7 +12,7 @@ Endpoint which receives urls of pictures and downloads them to google cloud stor
 
 ## Sample Request
 
-``
+```json
 {
     "_id": "61940b495bf7af0100ade054",
     "photos": [
@@ -33,4 +33,4 @@ Endpoint which receives urls of pictures and downloads them to google cloud stor
         }
     ]
 }
-``
+```
