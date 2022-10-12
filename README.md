@@ -12,6 +12,8 @@ Endpoint which receives urls of pictures and downloads them to google cloud stor
 
 ## Sample Request
 
+Post `https://your_domain.com/addPictures`
+
 ```json
 {
     "_id": "61940b495bf7af0100ade054",
