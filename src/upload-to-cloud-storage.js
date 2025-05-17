@@ -5,7 +5,6 @@ const appConfig = require('./config');
 
 const bucketName = appConfig.storage.bucketName;
 const projectId = appConfig.storage.projectId;
-const keyFilename = appConfig.storage.keyFilename;
 
 const storageConfig = {
     action: 'read',
@@ -33,7 +32,8 @@ async function downloadFile(url) {
 
 
 async function uploadFile(file_name, buffer) {
-    const storage = new Storage({projectId, keyFilename});
+    // Using Application Default Credentials
+    const storage = new Storage({projectId});
     const bucketFile = storage.bucket(bucketName).file(file_name)
     const dataStream = new stream.PassThrough();
 

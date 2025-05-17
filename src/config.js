@@ -10,8 +10,8 @@ const config = {
     listPerPage: env.LIST_PER_PAGE || 10,
     storage: {
         bucketName: env.BUCKET_NAME,
-        projectId: env.PROJECT_ID,
-        keyFilename: env.KEY_FILENAME || 'storage_key.json'
+        projectId: env.PROJECT_ID
+        // Using Application Default Credentials instead of key file
     }
 };
 

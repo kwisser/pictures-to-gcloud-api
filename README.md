@@ -28,7 +28,10 @@ PORT=8083
 
 1. Make sure you have the Google Cloud SDK installed and configured.
 
-2. Place your storage key from Google Cloud Storage in `storage_key.json` or set the KEY_FILENAME environment variable.
+2. Set up Application Default Credentials:
+   ```
+   gcloud auth application-default login
+   ```
 
 3. Deploy the function:
    ```
