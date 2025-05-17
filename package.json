@@ -1,14 +1,25 @@
 {
+  "name": "pictures-to-gcloud-api",
+  "version": "1.0.0",
+  "description": "API for uploading pictures to Google Cloud Storage",
+  "main": "src/index.js",
   "dependencies": {
+    "@google-cloud/functions-framework": "^4.0.0",
     "@google-cloud/storage": "^5.18.2",
     "colors": "^1.4.0",
     "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
     "express": "^4.17.3",
     "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
     "nodemon": "^2.0.15"
   },
   "scripts": {
-    "dev": "nodemon"
+    "start": "functions-framework --target=picturesApi",
+    "dev": "nodemon src/index.js",
+    "deploy": "gcloud functions deploy picturesApi --runtime nodejs18 --trigger-http --allow-unauthenticated"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }

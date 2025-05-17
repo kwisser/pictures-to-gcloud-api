@@ -6,10 +6,17 @@ async function handlePictures(body) {
     const uploadTasks = []
     const fileNames = []
     const amount_of_pictures = pics.length;
-    global.picturesToDownload += amount_of_pictures
+    
+    // Use a local variable instead of global for cloud functions
+    let picturesToDownload = 0;
+    if (global.picturesToDownload !== undefined) {
+        global.picturesToDownload += amount_of_pictures;
+        picturesToDownload = global.picturesToDownload;
+    } else {
+        picturesToDownload = amount_of_pictures;
+    }
 
     for (let i = 0; i < amount_of_pictures; i++) {
-
         try {
             const picUrl = pics[i]['url']
             const filename = pics[i]['fileName']
@@ -22,6 +29,20 @@ async function handlePictures(body) {
             console.log(`Error: ${id} ${exception}`)
         }
     }
+    
+    // Wait for all uploads to complete
+    await Promise.all(uploadTasks);
+    
+    // Decrease the counter after uploads are done
+    if (global.picturesToDownload !== undefined) {
+        global.picturesToDownload -= amount_of_pictures;
+    }
+    
+    return {
+        success: true,
+        message: `Processed ${amount_of_pictures} pictures for ID: ${id}`,
+        fileNames: fileNames
+    };
 }
 
 module.exports = {

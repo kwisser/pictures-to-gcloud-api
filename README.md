@@ -1,14 +1,81 @@
-# Picture to Google Cloud Api
+# Pictures to Google Cloud Storage API
 
-Endpoint which receives urls of pictures and downloads them to google cloud storage
+This is a Google Cloud Function that handles uploading pictures to Google Cloud Storage.
 
-## Prepare GCP
+## Environment Variables
 
-1. Create Storage Bucket
-2. Create Repository in Artifact Registry
-3. Place your storage key from google cloud storage in `src/storage_key.json`
-4. Go to . directory and enter `gcloud builds submit --tag ZONE-docker.pkg.dev/PROJECT_ID/REPOSITORY_NAME/picture-api`
-5. Create Cloud Run with build Image from last command
+Create a `.env` file with the following variables:
+
+```
+BUCKET_NAME=your-bucket-name
+PROJECT_ID=your-project-id
+PORT=8083
+```
+
+## Local Development
+
+1. Install dependencies:
+   ```
+   npm install
+   ```
+
+2. Run the development server:
+   ```
+   npm run dev
+   ```
+
+## Deployment to Google Cloud Functions
+
+1. Make sure you have the Google Cloud SDK installed and configured.
+
+2. Place your storage key from Google Cloud Storage in `storage_key.json` or set the KEY_FILENAME environment variable.
+
+3. Deploy the function:
+   ```
+   npm run deploy
+   ```
+
+   Or manually:
+   ```
+   gcloud functions deploy picturesApi --runtime nodejs18 --trigger-http --allow-unauthenticated
+   ```
+
+4. For environment variables in production, you can set them during deployment:
+   ```
+   gcloud functions deploy picturesApi \
+     --runtime nodejs18 \
+     --trigger-http \
+     --allow-unauthenticated \
+     --set-env-vars BUCKET_NAME=your-bucket-name,PROJECT_ID=your-project-id
+   ```
+
+## API Endpoints
+
+### POST /addPictures
+Uploads pictures to Google Cloud Storage.
+
+Request body:
+```json
+{
+  "_id": "user-id",
+  "photos": [
+    {
+      "url": "https://example.com/image.jpg",
+      "fileName": "image.jpg"
+    }
+  ]
+}
+```
+
+### GET /
+Returns the current status of picture uploads.
+
+Response:
+```json
+{
+  "picturesToDownload": 0
+}
+```
 
 ## Sample Request
 

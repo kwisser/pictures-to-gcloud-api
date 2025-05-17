@@ -1,12 +1,13 @@
 const https = require("https");
 const {Storage} = require('@google-cloud/storage');
 const stream = require('stream');
+const appConfig = require('./config');
 
-const bucketName = 'YOUR_BUCKET_NAME';
-const projectId = 'YOUR_PROJEKT_NAME'
-const keyFilename = 'storage_key.json'
+const bucketName = appConfig.storage.bucketName;
+const projectId = appConfig.storage.projectId;
+const keyFilename = appConfig.storage.keyFilename;
 
-const config = {
+const storageConfig = {
     action: 'read',
     // A timestamp when this link will expire
     expires: '01-01-2026',
@@ -47,7 +48,7 @@ async function uploadFile(file_name, buffer) {
             .on('finish', () => {
                 resolve();
             })
-    }).then(() => storage.bucket(bucketName).file(file_name).getSignedUrl(config))
+    }).then(() => storage.bucket(bucketName).file(file_name).getSignedUrl(storageConfig))
 }
 
 
